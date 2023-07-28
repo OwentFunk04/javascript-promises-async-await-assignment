@@ -41,7 +41,29 @@
 //    - E.g. Given the number 5 as input, the API endpoint string should be 'https://catfact.ninja/facts?limit=5'
 // 3. Uses fetch() at the modified endpoint
 // 4. Using the chosen approach (promise chaining or async/await), convert the response to json and return the data in its entirety
+function getCatFacts(limit) {
+    const endpoint = `https://catfact.ninja/facts?limit=${limit}`;
+  
+    return fetch(endpoint)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Unable to fetch cat facts.');
+        }
 
+        return response.json();
+      })
+      .catch((error) => {
+        console.error('Error fetching cat facts:', error.message);
+        throw error;
+      });
+  }
 
-
+  getCatFacts(5)
+    .then((catFacts) => {
+      console.log(catFacts);
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
+    });
+  
 //END OF ASSIGNMENT
